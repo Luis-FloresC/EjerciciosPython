@@ -9,4 +9,3 @@ print(lsString)
 
 listaStr = lsString.split('-')
 print(listaStr)
-print(join(ls,' '))
