@@ -15,8 +15,12 @@ Función para encriptar texto
 def getPalabraEncriptada(thisTexto):
     try:
         text = ""
-        listaAbecedario = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
-                           "L", "M", "N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        listaAbecedario = [ "A", "B", "C", "D", "E", 
+                            "F", "G", "H", "I", "J", 
+                            "K","L", "M", "N", "Ñ", 
+                            "O", "P", "Q", "R", "S", 
+                            "T", "U", "V", "W", "X", 
+                            "Y", "Z"]
         rango = len(thisTexto)
         for x in range(rango):
             text += (getLetraEncriptada(thisTexto[x], listaAbecedario, x+1))
@@ -25,8 +29,8 @@ def getPalabraEncriptada(thisTexto):
         return("Ocurrió un error")
 
 '''
-Función para encriptar texto  
-@thisTexto -> Palabra que vamos a encriptar
+Función para desencriptar texto  
+@thisTexto -> Palabra que vamos a desencriptar
 '''
 def getPalabraDesencriptada(thisTexto):
     try:
@@ -41,10 +45,15 @@ def getPalabraDesencriptada(thisTexto):
         return("Ocurrió un error")
 
 
-
+'''
+Funcion para validar los número que se encuentre en un rango
+@numero -> número que vamos a evaluar
+@rangoMinimo -> Rango mínimo que puede se puede permitir 
+@rangoMaximo -> Rango máximo que puede se puede permitir 
+'''
 def validarNumeros(numero,rangoMinimo,rangoMaximo):
     if numero < rangoMinimo or numero > rangoMaximo:
-        return 0
+        return numero - rangoMaximo - 1
     else:
         return numero
     
@@ -58,11 +67,9 @@ Función para desencriptar una letra
 '''
 def getLetraDesencriptada(thisLetra, thisListaAbecedario, indice):
     try:
-        index = getIndexOfList(thisListaAbecedario, thisLetra) - indice
-
-            
-  
-        thisLetra = thisListaAbecedario[index]
+      #  print("Index",(getIndexOfList(thisListaAbecedario, thisLetra)),"indice",indice)
+        index = (getIndexOfList(thisListaAbecedario, thisLetra)-indice )
+        thisLetra = thisListaAbecedario[(index)]
         return thisLetra
     except:
         return("Ocurrió un error")
@@ -78,7 +85,7 @@ def getLetraEncriptada(thisLetra, thisListaAbecedario, indice):
     try:
         index = getIndexOfList(thisListaAbecedario, thisLetra)  + indice
         if index > 26:
-            index = validarNumeros(index,1,26) + indice
+            index = (validarNumeros(index,0,26))
   
         thisLetra = thisListaAbecedario[index]
         return thisLetra
@@ -99,7 +106,6 @@ def convertTextOnList(thisText,separador):
         print("Ocurrió un error")
         return listaVacia;
             
-
 #Funcion para iniciar el proceso de encriptación
 def init():
     try:
@@ -118,7 +124,7 @@ def init():
         rango = len(listEncriptada)
         
         for x in range(rango):
-            textDesencriptado += (getPalabraDesencriptada(listEncriptada[x].upper())) + " " 
+            textDesencriptado += (getPalabraDesencriptada((listEncriptada[x].upper()))) + " " 
         
         print("Texto Encriptado: ",text.capitalize())    
         print("Texto Desencriptado: ", textDesencriptado.capitalize())         
