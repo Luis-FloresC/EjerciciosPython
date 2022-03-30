@@ -1,5 +1,4 @@
-ls = [["A","B" ,"C" ,"D","E" ,"F","G" ,"H","I", "J" ,"K" ,"L","M","N"], 
-["Ñ", "O" ,"P" ,"Q","R", "S", "T", "U" ,"V", "W", "X", "Y","Z","-" ]]
+
  
 '''
 Función para obtener el indice de un elemento en la lista
@@ -46,20 +45,20 @@ def getLetraEncriptada(thisLetra, thisListaAbecedario):
     except:
         return("Ocurrió un error")
 
-
+def getPalabraEncriptada(thisText,thisList):
+    rango = len(thisText)
+    text = ""
+    for x in range(rango):
+        text += (getLetraEncriptada(thisText[x],thisList)) 
+    return text    
+    
 
 def rotarLista(thisList,thisText):
     try:
-        text = ""
         rango = len(thisText)
         for x in range(rango):
             thisList.insert(0,thisList.pop())
-        
-        for x in range(rango):
-            text += (getLetraEncriptada(thisText[x],ls)) 
-            
-        print(text)
-           
+             
         return thisList
     except:
         listaVacia =[]
@@ -67,16 +66,22 @@ def rotarLista(thisList,thisText):
         return listaVacia;
     
 
-ls[1] = rotarLista(ls[1],"LA")
 
-ls[1] = rotarLista(ls[1],"CASA")
+ls = [["A","B" ,"C" ,"D","E" ,"F","G" ,"H","I", "J" ,"K" ,"L","M","N"], 
+["Ñ", "O" ,"P" ,"Q","R", "S", "T", "U" ,"V", "W", "X", "Y","Z","-" ]]
 
-ls[1] = rotarLista(ls[1],"SOLITARIA")
 
-ls[1] = rotarLista(ls[1],"DE")
+def init():
+    texto = "La Casa Solitaria de la montaña en new york"
+    listaString = convertTextOnList(texto," ")
+    rango = len(listaString)
+    textA = ""
+    for x in range(rango):
+        ls[1] = rotarLista(ls[1],listaString[x])
+        textA += getPalabraEncriptada(listaString[x].upper(),ls) + " "
 
-ls[1] = rotarLista(ls[1],"LA")
-
-ls[1] = rotarLista(ls[1],"MONTAÑA")
+    print(textA)
+        
+init();
 
 
