@@ -1,3 +1,7 @@
+import os
+import os.path as path
+from pip._vendor.distlib.compat import raw_input
+
 '''
 Función para obtener el indice de un elemento en la lista
 @thisList -> Lista donde se realiza la buscaqueda de indice por elemento
@@ -105,18 +109,41 @@ def convertTextOnList(thisText,separador):
         listaVacia =[]
         print("Ocurrió un error")
         return listaVacia;
+ 
+ 
+
+def CreacionArchivo(thisFile):
+    Existe = False
+    if path.exists(thisFile):
+        Existe = True
+    else:  
+        Existe = False
+    return Existe   
             
 #Funcion para iniciar el proceso de encriptación
-def init():
+def init(FileOrigin,FileDestination):
     try:
         text = ""
         textDesencriptado = ""
+        ArchivoOrigen = open(FileOrigin,"r")
+        textoEncriptar="";
+        if(CreacionArchivo(FileOrigin) == True):
+            ArchivoOrigen = open(FileOrigin,"r",encoding="utf-8")
+            textoEncriptar = ArchivoOrigen.read();
+            ArchivoOrigen.close();
+        else:
+            ArchivoOrigen = open(FileOrigin,"w",encoding="utf-8");
+            textoEncriptar = "La casa solitaria de la montaña"
+            ArchivoOrigen.write(textoEncriptar);
+            ArchivoOrigen.close();
+            
         
-        textoEncriptar = input("Ingrese cadena de Texto: ")
+        ArchivoDestino = open(FileDestination,"w",encoding="utf-8");
+          
+        
+        
         listaStr = convertTextOnList(textoEncriptar," ");
-
-        rango = len(listaStr)
-        
+        rango = len(listaStr)     
         for x in range(rango):
             text += (getPalabraEncriptada(listaStr[x].upper())) + " "
         
@@ -126,11 +153,13 @@ def init():
         for x in range(rango):
             textDesencriptado += (getPalabraDesencriptada((listEncriptada[x].upper()))) + " " 
         
+        ArchivoDestino.write(text.capitalize());
+        ArchivoDestino.close()
         print("Texto Encriptado: ",text.capitalize())    
         print("Texto Desencriptado: ", textDesencriptado.capitalize())         
     except:
         print("Ocurrió un error")
     
-init()    
+init("Ejer1Origen.txt","Ejer1Destino.txt");    
 
 
