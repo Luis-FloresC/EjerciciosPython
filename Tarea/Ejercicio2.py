@@ -1,4 +1,8 @@
 
+import os
+import os.path as path
+from pip._vendor.distlib.compat import raw_input
+
 listaAbecedarioEn = [["A","B" ,"C" ,"D","E" ,"F","G" ,"H","I", "J" ,"K" ,"L","M","N"], 
 ["Ñ", "O" ,"P" ,"Q","R", "S", "T", "U" ,"V", "W", "X", "Y","Z","-" ]]
 
@@ -100,20 +104,40 @@ def rotarLista(thisList,thisText):
         print("Ocurrió un error")
         return listaVacia;
     
+def CreacionArchivo(thisFile):
+    Existe = False
+    if path.exists(thisFile):
+        Existe = True
+    else:  
+        Existe = False
+    return Existe  
 
-
-def init():
-    texto = "La Casa solitaria en la montaña"
-    listaString = convertTextOnList(texto," ")
-    rango = len(listaString)
+def init(FileOrigin,FileDestination):
+    
     textA = ""
     textA2 = ""
-
+    texto = ""
+    if(CreacionArchivo(FileOrigin) == True):
+            ArchivoOrigen = open(FileOrigin,"r",encoding="utf-8")
+            texto = ArchivoOrigen.read();
+            ArchivoOrigen.close();
+    else:
+            ArchivoOrigen = open(FileOrigin,"w",encoding="utf-8");
+            texto = "La casa solitaria de la montaña"
+            ArchivoOrigen.write(texto);
+            ArchivoOrigen.close();
+            
+    ArchivoDestino = open(FileDestination,"w",encoding="utf-8");   
+    
+    listaString = convertTextOnList(texto," ")
+    rango = len(listaString)     
     for x in range(rango):
         listaAbecedarioEn[1] = rotarLista(listaAbecedarioEn[1],listaString[x])
         textA += getPalabraEncriptada(listaString[x].upper(),listaAbecedarioEn) + " "
 
     print(textA.capitalize())
+    ArchivoDestino.write(textA.capitalize());
+    ArchivoDestino.close()
     listaEncrip = convertTextOnList(textA," ")
     listaEncrip.pop()
     rango = len(listaEncrip)
@@ -126,6 +150,6 @@ def init():
  
        
         
-init();
+init("Ejer2Origen.txt","Ejer2Destino.txt"); 
 
 

@@ -1,3 +1,6 @@
+import os
+import os.path as path
+from pip._vendor.distlib.compat import raw_input
 
 def convertPalabraOnList(thisText):
     rango = len(thisText)
@@ -127,17 +130,30 @@ def desencriptarPalabra(thisList,thisPalabra):
             text  += getValorOfList(thisList[index],thisPalabra[i])       
         else:
             text += thisPalabra[i]
-    
-    
-    #print(thisList)
-   
-         
     return text
 
     
-      
+def CreacionArchivo(thisFile):
+    Existe = False
+    if path.exists(thisFile):
+        Existe = True
+    else:  
+        Existe = False
+    return Existe       
 
-def init():
+def init(FileOrigin,FileDestination):
+    Palabra = "La Casa Solitaria de la Montaña de Luis"
+    if(CreacionArchivo(FileOrigin) == True):
+            ArchivoOrigen = open(FileOrigin,"r",encoding="utf-8")
+            Palabra = ArchivoOrigen.read();
+            ArchivoOrigen.close();
+    else:
+            ArchivoOrigen = open(FileOrigin,"w",encoding="utf-8");
+            Palabra = "La casa solitaria de la montaña"
+            ArchivoOrigen.write(Palabra);
+            ArchivoOrigen.close();
+            
+    ArchivoDestino = open(FileDestination,"w",encoding="utf-8");
     listPalabras = [
         "MURCIELAGO",
         "HIPOTENUSA",
@@ -149,7 +165,7 @@ def init():
         "CEDULACIÓN",
         "CUESTIONAR",
         "ESQUILADOR"]
-    Palabra = "La Casa Solitaria de la Montaña de Luis"
+    
     listPalabrasText = convertTextOnList(Palabra," ")
     rango = len(listPalabrasText)
     text = ""
@@ -158,6 +174,8 @@ def init():
         indiceMax = MayorNumeroPalabras(listasR)
         text += convertListOnText(listasR[indiceMax]) + " "
     print("Texto Encriptado:",text)
+    ArchivoDestino.write(text.capitalize());
+    ArchivoDestino.close()
     listEncriptada = convertTextOnList(text," ")
     listEncriptada.pop()
     rango = len(listEncriptada)
@@ -166,7 +184,8 @@ def init():
     for x in range(rango):
         text2 += desencriptarPalabra(listPalabras,listEncriptada[x]) + " "
     print("Texto Desencriptado:" ,text2.capitalize())
-init();
+    
+init("Ejer3Origen.txt","Ejer3Destino.txt");
 
 
 
