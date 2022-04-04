@@ -125,7 +125,7 @@ def init(FileOrigin,FileDestination):
     try:
         text = ""
         textDesencriptado = ""
-        ArchivoOrigen = open(FileOrigin,"r")
+      # ArchivoOrigen = open(FileOrigin,"r")
         textoEncriptar="";
         if(CreacionArchivo(FileOrigin) == True):
             ArchivoOrigen = open(FileOrigin,"r",encoding="utf-8")
