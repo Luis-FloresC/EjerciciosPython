@@ -4,54 +4,70 @@ import os.path as path
 from pip._vendor.distlib.compat import raw_input
 from math import ceil
 
+'''
+Funcion para encriptar un texto largo.
+@thisText -> Texto que vamos a encriptar
+'''
 def GetPalabraEncriptada(thisText):
     try:    
-        encrypt_message = ""
-        allmatriz= matriz_5x25(thisText)
+        textEncriptado = ""
+        allmatriz = Matriz5x25(thisText)
         for matriz in allmatriz:
-            transp_matriz = transponer_matriz(matriz)
+            resultMatriz = TransponerMatriz(matriz)
             for i in range(5):
                 for j in range(25):
-                    encrypt_message += transp_matriz[i][j]
-        return encrypt_message
+                    textEncriptado += resultMatriz[i][j]
+        return textEncriptado
     except: 
         return("Ocurrió un error")
         
-
-def matriz_5x25(pharse):
+'''
+Funcion para convertir el texto de origen en una matriz  de 5 filas por 25 columnas.
+@thisFrase -> Frase que vamos a convertir en matriz
+'''
+def Matriz5x25(thisFrase):
         allMatriz = []
-        coun_letters = len(pharse)
-        count_laps = ceil(coun_letters / 125)
-        for h in range(0, count_laps):
+        totalLetras = len(thisFrase)
+        totalIteraciones = ceil(totalLetras / 125)
+        for h in range(0, totalIteraciones):
             matriz = []
             for i in range(5):
                 matriz.append([])
                 for j in range(25):
-                    if coun_letters > 0:
+                    if totalLetras > 0:
                         if(i==0):
-                            matriz[i].append(pharse[j])
+                            matriz[i].append(thisFrase[j])
                         else:
-                            matriz[i].append(pharse[j+25*i])
+                            matriz[i].append(thisFrase[j+25*i])
 
-                        coun_letters -= 1
+                        totalLetras -= 1
                             
                     else:
                         matriz[i].append(" ")
             allMatriz.append(matriz)
         return allMatriz
-
-def decrypt(thisText):
-    decrypt_message = ""
-    allmatriz= matriz_5x25(thisText)
+    
+'''
+Funcion para Obtener el texto largo desencriptados
+@thisText -> texto encriptado
+'''
+def GetPalabraDesencriptada(thisText):
+    textDesencriptado = ""
+    allmatriz= Matriz5x25(thisText)
     for matriz in allmatriz:
-        transp_matriz = transponer_matriz(matriz)
+        resultMatriz = TransponerMatriz(matriz)
         for i in range(5):
             for j in range(25):
-                decrypt_message += transp_matriz[i][j]
-    return decrypt_message
+                textDesencriptado += resultMatriz[i][j]
+    return textDesencriptado
     
-def transponer_matriz(matriz):
-        transp_matriz = []
+
+'''
+Funcion para transponer una matriz
+@thisMatriz -> Matriz que vamos a transponer
+'''    
+def TransponerMatriz(thisMatriz):
+        resultMatriz = []
         matriz_5x5 = []
         allMatriz_5x5 = []
         for h in range(0, 5):
@@ -59,23 +75,24 @@ def transponer_matriz(matriz):
             for i in range(5):
                 matriz_5x5.append([])
                 for j in range(5):
-                    matriz_5x5[i].append(matriz[i][j+(h*5)])
+                    matriz_5x5[i].append(thisMatriz[i][j+(h*5)])
             allMatriz_5x5.append(matriz_5x5)
             matriz_5x5 = []
-
-
         # filas por columnas
         for i in range(5):
-            transp_matriz.append([])
+            resultMatriz.append([])
             for fila in allMatriz_5x5:
                 for j in range(5):
-                    transp_matriz[i].append(fila[j][i])
+                    resultMatriz[i].append(fila[j][i])
 
         
-        return transp_matriz    
+        return resultMatriz    
 
-
-def CreacionArchivo(thisFile):
+'''
+Funcion para verificar si el archivo existe en el directorio
+@thisFile -> Nombre del archivo
+'''
+def ExistFile(thisFile):
     Existe = False
     if path.exists(thisFile):
         Existe = True
@@ -83,14 +100,17 @@ def CreacionArchivo(thisFile):
         Existe = False
     return Existe  
     
-    
+
+'''
+Funcion para Iniciar el Proceso de encriptacion y desencriptar la frase de texto largo
+@FileOrigin -> Nombre del archivo de origen
+@FileDestination -> Nombre del archivo de destino
+'''    
 def Init(FileOrigin,FileDestination):
     try:
-        Frase = '''
-                El término "big data" se  refiere a los datos que son tan grandes, rápidos o complejos que es difícil procesarlos
-                '''
+        Frase = '''El término "big data" se  refiere a los datos que son tan grandes, rápidos o complejos que es difícil procesarlos'''
         textEncriptado = ""
-        if(CreacionArchivo(FileOrigin) == True):
+        if(ExistFile(FileOrigin) == True):
                 ArchivoOrigen = open(FileOrigin,"r",encoding="utf-8")
                 Frase = ArchivoOrigen.read();
                 ArchivoOrigen.close();
@@ -101,7 +121,7 @@ def Init(FileOrigin,FileDestination):
         ArchivoDestino = open(FileDestination,"w",encoding="utf-8"); 
         textEncriptado = GetPalabraEncriptada(Frase);
         print("Texto Encriptado:",textEncriptado);   
-        print("Texto Desencriptado: ",decrypt(textEncriptado))
+        print("Texto Desencriptado: ",GetPalabraDesencriptada(textEncriptado))
         ArchivoDestino.write(textEncriptado);
         ArchivoDestino.close()           
                 

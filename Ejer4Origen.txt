@@ -1,3 +1,1 @@
-
 El término "big data" se  refiere a los datos que son tan grandes, rápidos o complejos que es difícil procesarlos
-                

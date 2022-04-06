@@ -111,7 +111,10 @@ def convertTextOnList(thisText,separador):
         return listaVacia;
  
  
-
+'''
+Funcion para verificar si el archivo existe en el directorio
+@thisFile -> Nombre del archivo
+'''  
 def CreacionArchivo(thisFile):
     Existe = False
     if path.exists(thisFile):
@@ -120,7 +123,11 @@ def CreacionArchivo(thisFile):
         Existe = False
     return Existe   
             
-#Funcion para iniciar el proceso de encriptación
+'''
+Funcion para Iniciar el Proceso de encriptación y desencriptar la frase de texto corto
+@FileOrigin -> Nombre del archivo de origen
+@FileDestination -> Nombre del archivo de destino
+'''
 def init(FileOrigin,FileDestination):
     try:
         text = ""

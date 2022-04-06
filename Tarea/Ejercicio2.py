@@ -76,6 +76,12 @@ def getLetraDesencriptada(thisLetra, thisListaAbecedario):
     except:
         return("Ocurrió un error")
 
+
+'''
+Funcion paar encriptar una palabra
+@thisText -> Palabra que vamos a encriptar
+@thisList -> Lista que vamos a sustituir
+'''
 def getPalabraEncriptada(thisText,thisList):
     rango = len(thisText)
     text = ""
@@ -83,6 +89,11 @@ def getPalabraEncriptada(thisText,thisList):
         text += (getLetraEncriptada(thisText[x],thisList)) 
     return text    
 
+'''
+Funcion para obtener la palabra desencriptada a partir del texto encriptado por
+@thisText -> Palabra que se va desencriptar 
+@thisList -> Lista de origen del abecedario
+'''
 def getPalabraDesencriptada(thisText,thisList):
     rango = len(thisText)
     
@@ -91,6 +102,12 @@ def getPalabraDesencriptada(thisText,thisList):
         text += (getLetraDesencriptada(thisText[x],thisList)) 
     return text      
 
+
+'''
+Funcion para rotar una lista en forma circular.
+@thisList -> Lista que vamos a rotar
+@thisText -> palabra para saber cuantas veces vamos a rotar la lista
+'''
 def rotarLista(thisList,thisText):
     try:
         
@@ -104,6 +121,12 @@ def rotarLista(thisList,thisText):
         print("Ocurrió un error")
         return listaVacia;
     
+    
+
+'''
+Funcion para verificar si el archivo existe en el directorio
+@thisFile -> Nombre del archivo
+'''       
 def CreacionArchivo(thisFile):
     Existe = False
     if path.exists(thisFile):
@@ -112,6 +135,12 @@ def CreacionArchivo(thisFile):
         Existe = False
     return Existe  
 
+
+'''
+Funcion para Iniciar el Proceso de encriptación y desencriptar la frase de texto corto
+@FileOrigin -> Nombre del archivo de origen
+@FileDestination -> Nombre del archivo de destino
+'''
 def init(FileOrigin,FileDestination):
     
     textA = ""

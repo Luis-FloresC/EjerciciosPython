@@ -2,6 +2,10 @@ import os
 import os.path as path
 from pip._vendor.distlib.compat import raw_input
 
+'''
+Funcion para convertir una palabra en una lista.
+@thisText -> palabra que vamos a separar letra por letra
+'''
 def convertPalabraOnList(thisText):
     rango = len(thisText)
     newList = []
@@ -9,11 +13,20 @@ def convertPalabraOnList(thisText):
         newList.append(thisText[x])
     return newList;
 
+'''
+Funcion para buscar una letra en un texto
+@thisLetra -> Letra que estamos buscando
+@thisListOrigin -> Lista donde vamos a buscar la letra
+'''
 def buscarOnText(thisLetra,thisListOrigin):
     text = thisListOrigin.find(thisLetra)
     return text;
   
-
+'''
+Funcion para obtener el elemeto de una lista por medio de su index.
+@thisList -> Lista donde buscaremos el valor.
+@index -> posición que vamos a buscar el elemento
+'''
 def getValorOfList(thisList, index): 
     try:
       # newlist = convertCadenaOnList(thisList)
@@ -39,6 +52,10 @@ def convertTextOnList(thisText,separador):
         print("Ocurrió un error")
         return listaVacia;
     
+'''
+Funcion que los devuelve una lista con el mayor coincidencas en la palabra.
+@thisList -> Lista donde vamos  buscar la palabra 
+'''    
 def MayorNumeroPalabras(thisList):
     
     rango = len(thisList)
@@ -54,14 +71,23 @@ def MayorNumeroPalabras(thisList):
             valor = x
             mayor = len(newList[x])
     return valor      
-             
-def tryParseInt(s, base=10, val=False):
+
+'''
+Funcion para Comprobar si un numero es entero
+@isNum -> dato que vamos a validar si es numero
+
+'''             
+def tryParseInt(isNum, base=10, val=False):
     try:
-        a = int(s)
-        return int(s,base)
+        a = int(isNum)
+        return int(isNum,base)
     except ValueError:
         return val 
-                       
+
+'''
+Funcion para convertir todos los valores de la lista solo en números enteros
+@thisList -> Lista que vamos a convertir
+'''                       
 def converListonEntero(thisList):
     newList = []
     thisText = convertListOnText(thisList)
@@ -73,7 +99,12 @@ def converListonEntero(thisList):
         #newList.append(thisList[x])
     return newList    
     
-
+'''
+Funcion para buscar una letra en la lista de 10 palabras de origen
+@thisPalabra -> palabra que vamos a buscar coincidencas
+@thisList -> Lista donde vamos a buscar que coincida esa palabra
+@num -> posición de la palabra donde vamos a buscar coincidencas
+'''
 def buscarLetra(thisPalabra,thisList,num):
     listNew = convertPalabraOnList(thisPalabra)
     rango = len(listNew)
@@ -94,6 +125,11 @@ def buscarLetra(thisPalabra,thisList,num):
          
     return listCoincidencia   
 
+'''
+Funcion para obtener la lista de coincidencias por cada una de las 10 palabras.
+@thisListOrigin -> Lista donde vamos a buscar la coincidencias.
+@thisPalabra -> Palabra donde vamos a buscar el mayor número de coincidencias
+'''
 def ObtenerMayorCoincidencia(thisListOrigin,thisPalabra):
     rango= len(thisListOrigin) 
     text = "";
@@ -104,20 +140,29 @@ def ObtenerMayorCoincidencia(thisListOrigin,thisPalabra):
     return(listN)      
 
 
-
+'''
+Funcion para unir una lista en una palabra.
+@thisList -> Lista que vamos a unir en una palabra
+'''
 def convertListOnText(thisList):
     newText = ''.join(thisList)
     return newText;
 
+'''
+Funcion para convertir una Cadena de texto en Lista.
+@cadena ->  Cadena de texto
+'''
 def convertCadenaOnList(cadena):
     cadena_Lista = []
     for letra in cadena:
         if letra != "":
-            cadena_Lista.append(letra)
-            
-        
+            cadena_Lista.append(letra) 
     return cadena_Lista
-
+'''
+Funcion para desencriptar la palabra encriptada
+@thisList -> Lista de palabras donde vamos a buscar
+@thisPalabra ->Palabra encriptada que vamos a desencriptar
+'''
 def desencriptarPalabra(thisList,thisPalabra):
     listTemporal = convertCadenaOnList(thisPalabra);
     index = int(listTemporal[0]);  
@@ -132,7 +177,10 @@ def desencriptarPalabra(thisList,thisPalabra):
             text += thisPalabra[i]
     return text
 
-    
+'''
+Funcion para verificar si el archivo existe en el directorio
+@thisFile -> Nombre del archivo
+'''   
 def CreacionArchivo(thisFile):
     Existe = False
     if path.exists(thisFile):
@@ -141,6 +189,11 @@ def CreacionArchivo(thisFile):
         Existe = False
     return Existe       
 
+'''
+Funcion para Iniciar el Proceso de encriptación y desencriptar la frase de texto largo
+@FileOrigin -> Nombre del archivo de origen
+@FileDestination -> Nombre del archivo de destino
+'''
 def init(FileOrigin,FileDestination):
     Palabra = "La Casa Solitaria de la Montaña de Luis"
     if(CreacionArchivo(FileOrigin) == True):
